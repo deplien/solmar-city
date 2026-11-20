@@ -3,6 +3,8 @@
 // 1/60 s steps and paints it: title, help, play, pause, the BUSTED / WASTED cards and the
 // ending are screens over the same living city. ?seed=N fixes the city; ?shot=<scene>
 // stages one of the deterministic screenshot scenes from shots.js instead of the menu.
+// This is the only module that wires the others together — the systems themselves stay
+// ignorant of each other and meet only in the shared state object G.
 import { STEP, WORLD, DAY_START_MINUTES, MINUTES_PER_SECOND, PLAYER } from './config.js';
 import { createRandom, clamp, dist } from './random.js';
 import { createCity } from './city.js';

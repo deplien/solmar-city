@@ -1,7 +1,9 @@
 // Keyboard and mouse state for the whole game. Held keys live in a Set the systems poll each
 // step; one-shot presses are remembered until the frame ends, so a tap between two frames is
 // never lost and never counted twice. The mouse position is kept in screen space; the player
-// code turns it into a world-space aim point through the camera.
+// code turns it into a world-space aim point through the camera. Everything is wired up by
+// the single createInput(canvas) call at boot; after that this module is pure polled state,
+// with no callbacks back into game code.
 
 /** Keys the page must never scroll or react to while the game has focus. */
 const GAME_KEYS = new Set([

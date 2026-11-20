@@ -3,6 +3,8 @@
 // real HUD — and then lets it keep breathing: traffic rolls, pedestrians stroll, the police
 // lights flash. The player's car in the driving scenes is steered by a tiny autopilot that
 // holds its lane, so the frame the judge sees is the game as it actually plays.
+// stageShot(name, G) sets a scene up and updateShot(G, dt) keeps it alive; main.js only
+// calls them when a ?shot= scene was requested.
 import { dist } from './random.js';
 import { makeCar, stepCarPhysics } from './traffic.js';
 import { addSkid, smoke } from './effects.js';

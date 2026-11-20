@@ -1,39 +1,66 @@
-// The hand-in program for Neon Tide: Solmar City, my gta6-01 entry (Node 22, standard
-// library only). The game itself is the game/ folder beside this file — plain static files
-// (game/index.html and its ES modules) that a desktop browser plays fully offline: no
-// library, no build step, no network request. All this program does is deliver it: it
-// copies game/ and screenshots/ into the output directory and writes dossier.json there,
-// the summary the judge reads, using the vendored make.fun library in vendor/.
+// Entry point for the "Neon Tide: Solmar City" bounty submission.
 //
-// To play the game locally, serve it with `node serve.ts` and open
-// http://localhost:8080. To rehearse this hand-in outside the grader's container, point
-// MAKEFUN_OUTPUT_DIR at a scratch folder instead of /output:
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+// Run it with Node 22 (`node main.ts`); there is nothing to install.
+// It assembles the deliverable in the output directory: the playable
+// game and its screenshots are staged there first, then the vendored
+// dossier builder describes the staged tree and the result is saved
+// as dossier.json next to them. Staging happens before the dossier is
+// built so the dossier always describes exactly what was shipped.
+//
+// Node's standard library is the only dependency.
 
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { buildDossier } from './vendor/makefun-game.ts';
 
-const here = fileURLToPath(new URL('.', import.meta.url));
-const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+// The folder this file lives in; the game/ and screenshots/ sources sit
+// right beside it in the repository.
+const here = dirname(fileURLToPath(import.meta.url));
 
-mkdirSync(out, { recursive: true });
-cpSync(join(here, 'game'), join(out, 'game'), { recursive: true });
-mkdirSync(join(out, 'screenshots'), { recursive: true });
-if (existsSync(join(here, 'screenshots'))) cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
+// Where the finished entry goes. The harness may redirect it through the
+// environment; /output is the conventional destination.
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-// The scorer's own caps (reference/gate.json): only text_max_bytes shapes the bytes; the others refuse an entry the
-// scorer would refuse (more than 4 screenshots or one over 256 KiB; more than 993 files in game/ or 48 MiB of game
-// files, in all, or a path under game/ over 1000 bytes: game/ counts beside /output's own 1000-entry cap, its
-// screenshots/ and dossier.json).
-writeFileSync(
-  join(out, 'dossier.json'),
-  buildDossier(out, {
-    text_max_bytes: 163840,
-    screenshots: { max: 4, max_bytes: 262144 },
-    game_max_files: 993,
-    game_max_bytes: 50331648,
-    game_path_max_bytes: 1000,
-  }),
-);
+// Copy one source folder into the output tree, making sure the target
+// directory exists first. A missing source is only tolerated where the
+// caller says so (screenshots are nice to have, the game is not).
+function stageFolder(name: string, required: boolean): void {
+  const from = join(here, name);
+  if (!existsSync(from)) {
+    if (required) {
+      throw new Error(`cannot stage the entry: ${from} is missing`);
+    }
+    return;
+  }
+  const to = join(outDir, name);
+  mkdirSync(to, { recursive: true });
+  cpSync(from, to, { recursive: true });
+}
+
+mkdirSync(outDir, { recursive: true });
+
+stageFolder('game', true);
+
+// The screenshots folder must exist in the output even when the repo has
+// none to copy, so create it before staging whatever is available.
+mkdirSync(join(outDir, 'screenshots'), { recursive: true });
+stageFolder('screenshots', false);
+
+// The caps handed to the dossier builder, mirroring the bounty's
+// published limits for entry size and screenshot count.
+const DOSSIER_CAPS = {
+  text_max_bytes: 163840,
+  screenshots: { max: 4, max_bytes: 262144 },
+  game_max_files: 993,
+  game_max_bytes: 50331648,
+  game_path_max_bytes: 1000,
+};
+
+// Describe the staged tree and persist the dossier as the entry's
+// dossier.json.
+const dossier = buildDossier(outDir, DOSSIER_CAPS);
+writeFileSync(join(outDir, 'dossier.json'), dossier);
+
+console.log(`staged Neon Tide: Solmar City into ${outDir} (dossier: ${dossier.byteLength} bytes)`);

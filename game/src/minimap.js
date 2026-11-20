@@ -2,7 +2,8 @@
 // tints, the road grid, the sea, and blips for everything that matters — the gold objective,
 // Marisol's pink M, police flashing blue and red, taxi fares in orange, courier work in
 // cyan, and the shards as faint sparks. North is up; the player's arrow turns, the map
-// does not, so the city stays learnable.
+// does not, so the city stays learnable. drawMinimap(ctx, G) is the whole interface —
+// hud.js calls it first, before painting the rest of the HUD over the same frame.
 import { WORLD, ROAD_W, SAND_Y, WATER_Y, PALETTE, FONT } from './config.js';
 import { clamp } from './random.js';
 

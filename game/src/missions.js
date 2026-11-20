@@ -3,7 +3,9 @@
 // against Dario Kaine himself; between jobs the city pays for taxi fares, courier runs and
 // the twenty neon shards hidden on its sidewalks. Missions are small state machines: each
 // has phases, each phase an objective the HUD and minimap can point at, and finishing one
-// pays cash and respect and saves the game.
+// pays cash and respect and saves the game. The five story jobs run in the order named by
+// MISSION_NAMES; the side work is driven from the same update path, so there is only ever
+// one current objective for the HUD to show.
 import { dist, clamp } from './random.js';
 import { addHeat, starsForHeat } from './police.js';
 import { cruiseCar, makeCar, stepCarPhysics, MODELS } from './traffic.js';

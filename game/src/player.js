@@ -2,6 +2,8 @@
 // once he has picked one up — firing a pistol; climbing into any car in Solmar City and
 // driving it with the same physics as everyone else. Getting hurt, getting held up by the
 // law and getting wasted all start here or in the police module; this file owns the body.
+// createPlayer(city) builds Rocco's state and updatePlayer(G, dt) steps it; hurtPlayer is
+// how every other system — traffic, police, the world itself — deals him damage.
 import { PLAYER } from './config.js';
 import { clamp, dist } from './random.js';
 import { collideCircle } from './city.js';

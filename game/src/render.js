@@ -3,6 +3,8 @@
 // which turns from golden hour to neon night as the clock runs. The full-screen menus and
 // the BUSTED / WASTED / ending cards live here too. The camera is a plain offset in G, so
 // the world is drawn in world space under one translate and the screens in screen space.
+// darknessAt and warmthAt turn the clock into light, and drawScene is the single call
+// that paints a whole frame of the living world.
 import { WORLD, ROAD_W, SAND_Y, WATER_Y, PALETTE, FONT } from './config.js';
 import { clamp, lerp } from './random.js';
 import { MODELS } from './traffic.js';

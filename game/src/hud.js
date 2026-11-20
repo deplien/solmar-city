@@ -91,7 +91,10 @@ export function drawHUD(ctx, G) {
     ctx.font = `700 16px ${FONT}`;
     const labelW = ctx.measureText(o.label).width;
     ctx.font = `12px ${FONT}`;
-    const subW = o.sub ? ctx.measureText(`${o.sub} · ${d}m`).width : 0;
+    // A hideMarker objective sits on the player ("lose the police"), so a
+    // distance to it would always read 0m — leave the suffix off entirely.
+    const subText = o.sub ? (o.hideMarker ? o.sub : `${o.sub} · ${d}m`) : '';
+    const subW = o.sub ? ctx.measureText(subText).width : 0;
     const bw = Math.max(labelW, subW) + 44;
     const bx = (W - bw) / 2;
     ctx.fillStyle = PALETTE.panel;
@@ -108,7 +111,7 @@ export function drawHUD(ctx, G) {
     if (o.sub) {
       ctx.fillStyle = PALETTE.textDim;
       ctx.font = `12px ${FONT}`;
-      ctx.fillText(`${o.sub} · ${d}m`, W / 2, 56);
+      ctx.fillText(subText, W / 2, 56);
     }
     ctx.textAlign = 'left';
 

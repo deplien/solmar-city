@@ -1,6 +1,8 @@
 // A small seeded random number generator (mulberry32) with the handful of helpers the game
 // keeps reaching for. The same seed always builds the same city and stages the same
-// screenshot scene, which is what makes ?seed=N and the ?shot= scenes repeatable.
+// screenshot scene, which is what makes ?seed=N and the ?shot= scenes repeatable. The
+// plain math helpers (clamp, lerp, lerpAngle, dist) live here too, so every module takes
+// its numbers from one place instead of re-deriving them.
 
 export function createRandom(seed) {
   let a = seed | 0;

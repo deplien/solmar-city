@@ -2,7 +2,8 @@
 // small synth engine hums under the car and rises with its speed, police sirens wail in two
 // tones, and a slow synthwave arpeggio loops under everything. Browsers only let audio start
 // after a gesture, so the context is created lazily on the first key or click; until then
-// every call here is a quiet no-op.
+// every call here is a quiet no-op. The whole module sits behind the single createAudio()
+// factory, so the rest of the game holds one handle and never touches WebAudio itself.
 
 const ARP = [0, 3, 7, 10, 12, 10, 7, 3]; // A minor-ish climb and fall, in semitones.
 const ROOT = 110; // A2.

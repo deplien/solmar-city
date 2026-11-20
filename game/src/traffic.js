@@ -2,7 +2,9 @@
 // avenues, plus the arcade physics every car in the game shares — the player's stolen ride
 // and the police cruisers run through the same stepCarPhysics, so a chase feels fair.
 // Civilian drivers follow lanes, keep right, slow for whatever is ahead of them, turn at
-// intersections, and honk when the player blocks the road for too long.
+// intersections, and honk when the player blocks the road for too long. Car bodies come
+// from makeCar over the MODELS table, and collideCars is shared by traffic, the player
+// and the police, so every bump in the city resolves the same way.
 import { ROAD_W, LANE_OFF } from './config.js';
 import { clamp } from './random.js';
 import { collideCircle, roadPointNear } from './city.js';

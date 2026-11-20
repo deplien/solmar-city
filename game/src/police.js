@@ -3,7 +3,9 @@
 // when someone sees the crime: a witness (a nearby pedestrian, an officer, a cruiser with
 // line of sight) makes it count in full, otherwise it is rumour and worth a fraction. Lose
 // every pair of eyes for a few seconds and the heat drains away; get held nearly still by
-// an officer while it lasts and you are BUSTED.
+// an officer while it lasts and you are BUSTED. Other systems report crime through
+// addHeat(G, amount, x, y) and read the result back as stars via starsForHeat; clearHeat
+// is reserved for the bust and wasted resets.
 import { WANTED } from './config.js';
 import { clamp, dist } from './random.js';
 import { lineOfSight, roadPointNear, collideCircle } from './city.js';

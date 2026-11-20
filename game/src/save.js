@@ -2,7 +2,8 @@
 // cash, respect, where the story stands, which neon shards are already in your pocket, the
 // pistol if you found one, and where Rocco was standing when you left. Storage can be off
 // (private windows, blocked cookies), so every access is wrapped: a game that cannot save
-// still plays, it just forgets between visits.
+// still plays, it just forgets between visits. saveGame writes, loadSaveData only reads,
+// applySave folds a loaded record into a fresh state, and clearSave wipes it outright.
 import { SAVE_KEY } from './config.js';
 
 /** Write the player's progress. Returns true when it actually landed. */

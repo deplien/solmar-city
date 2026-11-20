@@ -1,7 +1,8 @@
 // Neon Tide: Solmar City — every shared tuning number and colour lives in this one file, so
 // the rest of the game can be about behaviour instead of magic numbers. The world is a fixed
 // 4200x3200 patch of canvas space; the camera only ever shows a window of it, so nothing in
-// here depends on the player's screen size.
+// here depends on the player's screen size. Modules import these constants by name — WORLD,
+// PALETTE, PLAYER, WANTED and friends — and never redefine them locally.
 
 export const WORLD = { w: 4200, h: 3200 };
 

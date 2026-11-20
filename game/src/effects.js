@@ -1,7 +1,9 @@
 // Juice, kept in one place: particles for sparks, dust, smoke and confetti; skid marks that
 // stay on the asphalt; floating text for cash and callouts; and the screen shake that sells a
 // crash. Everything is pooled in plain arrays with hard caps, so a long chase cannot grow
-// memory without bound — the oldest marks simply fade first.
+// memory without bound — the oldest marks simply fade first. Other modules spawn effects
+// only through the small named helpers here (burst, smoke, confetti, floatText, addShake and
+// friends); updateFx steps them and the draw functions paint them.
 
 const MAX_PARTICLES = 420;
 const MAX_SKIDS = 1100;

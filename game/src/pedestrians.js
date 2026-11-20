@@ -2,6 +2,8 @@
 // corners, run when a gun goes off or a car mounts the kerb, and — when knocked down, which
 // the game keeps bloodless: they fall, fade, and turn up fine across town — drop a little of
 // the cash they were carrying. One flagged pedestrian at a time is a taxi fare waiting.
+// The crowd is built once by initPeds(G) and advanced by updatePeds(G, dt); knockPed is
+// the single entry point for cars and fists alike.
 import { clamp, dist } from './random.js';
 import { collideCircle, sidewalkPoint } from './city.js';
 import { addHeat } from './police.js';

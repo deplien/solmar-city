@@ -4,6 +4,8 @@
 // solid is an AABB in `obstacles`, so collision for the player, cars and pedestrians is one
 // shared routine. Places the story needs — Vega's Garage, the hospital, the police station,
 // the harbor yard — are hand-placed after generation so they are always exactly there.
+// Consumers use the geometry through small queries (districtAt, isRoad, collideCircle,
+// lineOfSight) instead of walking the obstacle list themselves.
 import { WORLD, ROAD_W, SIDEWALK, SAND_Y } from './config.js';
 
 export const ROADS_V = [420, 1150, 1880, 2610, 3340, 3990];

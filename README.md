@@ -49,6 +49,14 @@ and `main.js` the loop that conducts them. The four screenshots this entry is ju
 deterministic scenes of the real game — open `game/index.html?shot=cover&seed=1` (or
 `chase`, `mission`, `title`) to see them staged live.
 
+The four captures in `screenshots/` are exactly those scenes: **1-cover.jpg** shows Rocco
+driving through downtown traffic at golden hour, HUD, minimap and objective banner all up;
+**2-chase.jpg** is a three-star pursuit, cruisers flashing on his tail with skid marks on
+the asphalt and the SPOTTED warning lit; **3-mission.jpg** catches Marisol Vega
+mid-briefing outside Vega's Garage, dialogue box open and the mission marker overhead;
+and **4-title.jpg** is the title screen, the neon NEON TIDE logo and menu over the living
+city below.
+
 ## Controls
 
 | Keys | Action |
